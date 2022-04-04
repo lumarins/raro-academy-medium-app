@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArticleThumbnailProps } from "../ArticleThumbnail/ArticleThumbnail.types";
 import { Button } from "../Button";
 import { Input } from "../Input";
@@ -24,6 +25,8 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({ article, onSubmit }) =
     }
   }, [article]);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (onSubmit) {
@@ -35,6 +38,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({ article, onSubmit }) =
         conteudo,
       };
       onSubmit(articleToSubmit as ArticleThumbnailProps)
+      navigate('/');
     }
   }
 

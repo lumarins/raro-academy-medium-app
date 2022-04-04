@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formataData } from "../../helpers/date";
+import apiClient from "../../services/api-client";
 import { ArticleThumbnailProps } from "./ArticleThumbnail.types";
 
 export const ArticleThumbnail: React.FC<ArticleThumbnailProps> = ({
@@ -18,6 +19,13 @@ export const ArticleThumbnail: React.FC<ArticleThumbnailProps> = ({
     const usuarioAtual = Number(localStorage.getItem('id'));
     setEditavel(autor.id === usuarioAtual);
   }, [autor]);
+
+  const navigate = useNavigate();
+
+  const deleteArticle = async () => {
+    await apiClient.delete(`/artigos/${id}`);
+    navigate('/');
+  }
 
   return (
     <div className="flex flex-col w-2/3 mt-5">
@@ -70,6 +78,22 @@ export const ArticleThumbnail: React.FC<ArticleThumbnailProps> = ({
           )
         }
         </Link>
+        {
+          editavel && (
+            <button
+              onClick={deleteArticle}
+              className={
+                `
+                hover:bg-red-400 bg-red-300 text-white
+                delay-100 duration-100
+                rounded-full py-1 px-2 text-xs
+                `
+              }
+            >
+              Apagar
+            </button>
+          )
+        }
       </footer>
       <hr className="mt-5" />
     </div>
