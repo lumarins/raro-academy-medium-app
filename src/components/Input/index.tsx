@@ -6,6 +6,8 @@ export type InputProps = {
   placeholder?: string;
   type: HTMLInputTypeAttribute | 'textarea';
   required?: boolean;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -13,6 +15,8 @@ export const Input: React.FC<InputProps> = ({
   label,
   placeholder = '',
   type,
+  value,
+  onChange,
   required = false
 }) => {
   const inputClassNames = `
@@ -38,6 +42,8 @@ export const Input: React.FC<InputProps> = ({
               placeholder={ placeholder }
               required={ required }
               className={ inputClassNames }
+              value={ value }
+              onChange={ onChange }
             /> 
           ) :
           (
@@ -48,6 +54,8 @@ export const Input: React.FC<InputProps> = ({
               placeholder={ placeholder }
               className={ `${inputClassNames} resize-none` }
               required={ required }
+              value={ value }
+              onChange={ onChange }
             />
           )
       }
