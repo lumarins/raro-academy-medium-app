@@ -1,5 +1,5 @@
 /* src/pages/EditarArquivo/index.tsx */
-import axios from "axios";
+import apiClient from '../../services/api-client'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ArticleForm } from "../../components/ArticleForm";
@@ -15,23 +15,17 @@ export const EditarArquivoPage = () => {
     }
   }, [id]);
 
-  const handleSubmit = (artigo: ArticleThumbnailProps) => {
+  const handleSubmit = async (artigo: ArticleThumbnailProps) => {
     if (artigo.id) {
-      console.log('=====> devo atualizar o artigo');
+      await apiClient.patch(`/artigos/${id}`, artigo);
     } else {
-      console.log('=====> devo criar um novo artigo');
+      await apiClient.post(`/artigos`, artigo);
     }
   }
 
   async function buscarArtigo() {
-    const token = localStorage.getItem("access_token");
-    const response = await axios.get<ArticleThumbnailProps>(
-      `http://3.221.159.196:3307/artigos/${id}`,
-      {
-        headers: {
-          'Authorization': `bearer ${token}`
-        }
-      }
+    const response = await apiClient.get<ArticleThumbnailProps>(
+      `/artigos/${id}`,
     );
     setArtigo(response.data);
   }

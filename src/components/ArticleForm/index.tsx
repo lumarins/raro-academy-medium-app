@@ -69,7 +69,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({ article, onSubmit }) =
             type="textarea"
             name="resumo"
             label="Resumo"
-            value={resumo}
+            value={ resumo }
             onChange={(e) => setResumo(e.target.value)}
             required
           />

@@ -13,10 +13,12 @@ export const ArticleThumbnail: React.FC<ArticleThumbnailProps> = ({
   autor,
 }) => {
   const [editavel, setEditavel] = useState(false);
+
   useEffect(() => {
-    const usuarioAtual = Number(localStorage.getItem('usuarioId'));
+    const usuarioAtual = Number(localStorage.getItem('id'));
     setEditavel(autor.id === usuarioAtual);
   }, [autor]);
+
   return (
     <div className="flex flex-col w-2/3 mt-5">
       <Link to={`/artigo/${id}`}>

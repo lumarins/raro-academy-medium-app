@@ -8,9 +8,9 @@ export const ArticleList: React.FC<ArticleListProps> = ({
   return (
     <div className="flex flex-col items-center justify-center m-10">
       {
-        articles.map(article => (
+        articles.map((article, index) => (
           <ArticleThumbnail
-            key={ article.titulo }
+            key={ `${article.titulo}-${index}` }
             {...article}
           />
         ))
